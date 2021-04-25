@@ -44,7 +44,7 @@
     </dependencyManagement>
 
     <properties>
-        <newpipe.version>6b663f8ee78d50647d</newpipe.version>
+        <newpipe.version>d761053c45465c3ee3f</newpipe.version>
         <okhttp.version>3.12.13</okhttp.version>
         <google.android.version>4.1.1.4</google.android.version>
         <android-maven-plugin.version>4.6.0</android-maven-plugin.version>
