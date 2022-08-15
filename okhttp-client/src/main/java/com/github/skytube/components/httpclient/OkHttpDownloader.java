@@ -8,7 +8,6 @@ import java.util.concurrent.TimeUnit;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import org.schabi.newpipe.extractor.downloader.Downloader;
 import org.schabi.newpipe.extractor.downloader.Request;
 import org.schabi.newpipe.extractor.downloader.Response;
 import org.schabi.newpipe.extractor.exceptions.ReCaptchaException;
@@ -22,9 +21,9 @@ import okhttp3.ResponseBody;
  * https://github.com/TeamNewPipe/NewPipeExtractor/blob/dev/extractor/src/test/java/org/schabi/newpipe/downloader/DownloaderTestImpl.java
  *
  */
-public class OkHttpDownloader extends Downloader {
-    private static final String USER_AGENT
-            = "Mozilla/5.0 (Windows NT 10.0; rv:78.0) Gecko/20100101 Firefox/78.0";
+public class OkHttpDownloader extends JsonDownloader {
+    private static final String USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; rv:103.0) Gecko/20100101 Firefox/103.0";
+
     private final OkHttpClient client;
 
     private static OkHttpDownloader instance;
@@ -66,8 +65,10 @@ public class OkHttpDownloader extends Downloader {
         }
 
         final okhttp3.Request.Builder requestBuilder = new okhttp3.Request.Builder()
-                .method(httpMethod, requestBody).url(url)
-                .addHeader("User-Agent", USER_AGENT);
+                .method(httpMethod, requestBody).url(url);
+        if (headers.get(USER_AGENT_HEADER) == null) {
+            requestBuilder.addHeader(USER_AGENT_HEADER, USER_AGENT);
+        }
 
         for (Map.Entry<String, List<String>> pair : headers.entrySet()) {
             final String headerName = pair.getKey();

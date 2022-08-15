@@ -5,7 +5,7 @@
     <parent>
         <groupId>com.github.SkyTubeTeam</groupId>
         <artifactId>components</artifactId>
-        <version>0.0.3</version>
+        <version>0.0.4-SNAPSHOT</version>
     </parent>
     <artifactId>okhttp-client</artifactId>
     <name>okhttp-client</name>
@@ -26,6 +26,12 @@
           <groupId>com.google.code.findbugs</groupId>
           <artifactId>jsr305</artifactId>
           <version>3.0.2</version>
+        </dependency>
+        <dependency>
+          <groupId>org.json</groupId>
+          <artifactId>json</artifactId>
+          <version>20220320</version>
+          <scope>provided</scope>
         </dependency>
     </dependencies>
 </project>
