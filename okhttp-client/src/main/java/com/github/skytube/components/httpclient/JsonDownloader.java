@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.schabi.newpipe.extractor.downloader.Downloader;
 import org.schabi.newpipe.extractor.downloader.Response;
@@ -52,11 +53,11 @@ public abstract class JsonDownloader extends Downloader {
         }
     }
 
-    public JSONArray getJSONArray(String url) throws IOException {
+    public JSONArray getJSONArray(String url) throws IOException, JSONException {
         return new JSONArray(getBody(url));
     }
 
-    public JSONObject getJSONObject(String url) throws IOException {
+    public JSONObject getJSONObject(String url) throws IOException, JSONException {
         return new JSONObject(getBody(url));
     }
 
