@@ -45,7 +45,8 @@
 
     <properties>
         <newpipe.version>skytube-2022-08-14</newpipe.version>
-        <okhttp.version>3.14.9</okhttp.version>
+	<!-- OkHttp 3.14 doesn't support Android 19 -->
+        <okhttp.version>3.12.13</okhttp.version>
         <google.android.version>4.1.1.4</google.android.version>
         <android-maven-plugin.version>4.6.0</android-maven-plugin.version>
         <maven.compiler.source>1.8</maven.compiler.source>
