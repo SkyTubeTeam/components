@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.SkyTubeTeam</groupId>
     <artifactId>components</artifactId>
-    <version>0.0.5</version>
+    <version>0.0.6</version>
     <name>SkyTubeComponents</name>
     <packaging>pom</packaging>
     <description>Components for the SkyTube app</description>
@@ -44,7 +44,7 @@
     </dependencyManagement>
 
     <properties>
-        <newpipe.version>skytube-2022-08-14</newpipe.version>
+        <newpipe.version>2ef63ef85b</newpipe.version>
 	<!-- OkHttp 3.14 doesn't support Android 19 -->
         <okhttp.version>3.12.13</okhttp.version>
         <google.android.version>4.1.1.4</google.android.version>
