@@ -11,6 +11,7 @@
 
     <modules>
         <module>okhttp-client</module>
+        <module>android-utils</module>
     </modules>
 
     <dependencyManagement>
