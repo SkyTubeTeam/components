@@ -1,6 +1,7 @@
 package com.github.skytube.components.httpclient;
 
 import java.io.IOException;
+import java.net.HttpURLConnection;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
@@ -14,6 +15,9 @@ import org.schabi.newpipe.extractor.downloader.Downloader;
 import org.schabi.newpipe.extractor.downloader.Response;
 import org.schabi.newpipe.extractor.exceptions.ReCaptchaException;
 
+/**
+ * Base class for downloading JSONs.
+ */
 public abstract class JsonDownloader extends Downloader {
 
     static final String USER_AGENT_HEADER = "User-Agent";
@@ -42,11 +46,13 @@ public abstract class JsonDownloader extends Downloader {
     public String getBody(String url) throws IOException {
         try {
             Response response = get(url, getHeaders());
-            if (response.responseCode() == 200) {
+            if (response.responseCode() == HttpURLConnection.HTTP_OK) {
                 String body = response.responseBody();
                 return body;
             } else {
-                throw new IOException("Unable to fetch: " + url + ", responseCode=" + response.responseCode() + ", msg:" + response.responseMessage());
+                throw new IOException("Unable to fetch: " + url
+                        + ", responseCode=" + response.responseCode()
+                        + ", msg:" + response.responseMessage());
             }
         } catch (ReCaptchaException e) {
             throw new IOException("recaptcha : " + e.getMessage(), e);

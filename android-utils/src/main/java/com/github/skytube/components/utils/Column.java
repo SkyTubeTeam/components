@@ -5,9 +5,9 @@ import android.database.Cursor;
 
 public final class Column {
 
-    final String name;
-    final String type;
-    final String modifier;
+    private final String name;
+    private final String type;
+    private final String modifier;
 
     public Column(final String name, final String type) {
         this.name = name;
@@ -22,11 +22,19 @@ public final class Column {
     }
 
     public String format() {
-        return name + ' ' + type + (modifier != null ? " "+ modifier : "");
+        return name + ' ' + type + (modifier != null ? " " + modifier : "");
     }
 
     public String name() {
         return name;
+    }
+
+    public String type() {
+        return type;
+    }
+
+    public String modifier() {
+        return modifier;
     }
 
     public int getColumn(Cursor cursor) {

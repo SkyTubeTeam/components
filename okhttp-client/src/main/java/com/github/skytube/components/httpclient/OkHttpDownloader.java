@@ -17,19 +17,22 @@ import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 
 /**
+ * Http downloader for NewPipeExtractor using the OkHttp client.
  * Copied from 
  * https://github.com/TeamNewPipe/NewPipeExtractor/blob/dev/extractor/src/test/java/org/schabi/newpipe/downloader/DownloaderTestImpl.java
  *
  */
-public class OkHttpDownloader extends JsonDownloader {
+public final class OkHttpDownloader extends JsonDownloader {
     private static final String USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; rv:103.0) Gecko/20100101 Firefox/103.0";
 
     private final OkHttpClient client;
 
     private static OkHttpDownloader instance;
+    private static final int DEFAULT_READ_TIMEOUT = 30;
+    private static final int RECAPTCHA_REQUEST_CODE = 429;
 
     private OkHttpDownloader(final OkHttpClient.Builder builder) {
-        this.client = builder.readTimeout(30, TimeUnit.SECONDS).build();
+        this.client = builder.readTimeout(DEFAULT_READ_TIMEOUT, TimeUnit.SECONDS).build();
     }
 
     /**
@@ -38,13 +41,13 @@ public class OkHttpDownloader extends JsonDownloader {
      * @param builder if null, default builder will be used
      * @return a new instance of {@link DownloaderTestImpl}
      */
-    public synchronized static OkHttpDownloader init(@Nullable final OkHttpClient.Builder builder) {
+    public static synchronized OkHttpDownloader init(@Nullable final OkHttpClient.Builder builder) {
         instance = new OkHttpDownloader(
                 builder != null ? builder : new OkHttpClient.Builder());
         return instance;
     }
 
-    public synchronized static OkHttpDownloader getInstance() {
+    public static synchronized OkHttpDownloader getInstance() {
         if (instance == null) {
             init(null);
         }
@@ -87,7 +90,7 @@ public class OkHttpDownloader extends JsonDownloader {
 
         final okhttp3.Response response = client.newCall(requestBuilder.build()).execute();
 
-        if (response.code() == 429) {
+        if (response.code() == RECAPTCHA_REQUEST_CODE) {
             response.close();
 
             throw new ReCaptchaException("reCaptcha Challenge requested", url);

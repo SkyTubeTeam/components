@@ -1,6 +1,5 @@
 package com.github.skytube.components.utils;
 
-import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
@@ -8,6 +7,8 @@ import android.util.Log;
 
 
 public final class SQLiteHelper {
+    private SQLiteHelper() {
+    }
 
     /**
      * Execute a <b>constant</b> query, and return the number in the first row, first column.
@@ -66,12 +67,12 @@ public final class SQLiteHelper {
         try {
             db.execSQL("ALTER TABLE " + tableName + " ADD COLUMN " + column.format());
         } catch (SQLiteException e) {
-            error(e, "Unable to add '%s'  '%s' to table: '%s', because: %s", column.name, column.type, tableName, e.getMessage());
+            error(e, "Unable to add '%s'  '%s' to table: '%s', because: %s", column.name(), column.type(), tableName, e.getMessage());
         }
     }
 
     public static void createIndex(SQLiteDatabase db, String indexName, String tableName, Column... columns) {
-        db.execSQL("CREATE INDEX "+indexName+" ON "+tableName + "("+listColumns(true, columns)+")");
+        db.execSQL("CREATE INDEX " + indexName + " ON " + tableName + "(" + listColumns(true, columns) + ")");
     }
 
     public static String getCreateTableCommand(String tableName, Column... columns) {
@@ -107,7 +108,7 @@ public final class SQLiteHelper {
                 sql.append(", ");
             }
             if (justNames) {
-                sql.append(col.name);
+                sql.append(col.name());
             } else {
                 sql.append(col.format());
             }
@@ -115,7 +116,7 @@ public final class SQLiteHelper {
         return sql.toString();
     }
 
-    private static void error(Throwable error, String format, Object ... args) {
+    private static void error(Throwable error, String format, Object... args) {
         Log.e(SQLiteHelper.class.getSimpleName(), format(format, args), error);
     }
 
