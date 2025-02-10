@@ -28,9 +28,9 @@
           <version>3.0.2</version>
         </dependency>
         <dependency>
-          <groupId>org.json</groupId>
-          <artifactId>json</artifactId>
-          <version>20240303</version>
+          <groupId>com.github.TeamNewPipe</groupId>
+          <artifactId>nanojson</artifactId>
+          <version>1d9e1aea9049fc9f85e68b43ba39fe7be1c1f751</version>
           <scope>provided</scope>
         </dependency>
     </dependencies>
