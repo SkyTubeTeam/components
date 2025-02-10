@@ -8,9 +8,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.grack.nanojson.JsonArray;
+import com.grack.nanojson.JsonObject;
+import com.grack.nanojson.JsonParser;
+import com.grack.nanojson.JsonParserException;
 import org.schabi.newpipe.extractor.downloader.Downloader;
 import org.schabi.newpipe.extractor.downloader.Response;
 import org.schabi.newpipe.extractor.exceptions.ReCaptchaException;
@@ -59,12 +60,14 @@ public abstract class JsonDownloader extends Downloader {
         }
     }
 
-    public JSONArray getJSONArray(String url) throws IOException, JSONException {
-        return new JSONArray(getBody(url));
+    public JsonArray getJSONArray(String url) throws IOException, JsonParserException {
+        String body = getBody(url);
+        return JsonParser.array().from(body);
     }
 
-    public JSONObject getJSONObject(String url) throws IOException, JSONException {
-        return new JSONObject(getBody(url));
+    public JsonObject getJSONObject(String url) throws IOException, JsonParserException {
+        String body = getBody(url);
+        return JsonParser.object().from(body);
     }
 
 }
